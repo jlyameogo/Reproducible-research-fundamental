@@ -1,7 +1,12 @@
+*Set directories
+global raw_data "C:\Users\jlyam\OneDrive\Documents\Reproducible Research\Construction-Hands-on\Data\Raw"
+global intermediate_data "C:\Users\jlyam\OneDrive\Documents\Reproducible Research\Construction-Hands-on\Data\Intermediate"
+global clean_data "C:\Users\jlyam\OneDrive\Documents\Reproducible Research\Construction-Hands-on\Data\Final"
+
 *---------------------------------------------------------
 * Import the data
 *---------------------------------------------------------
-import delimited "C:\Users\jlyam\OneDrive\Documents\Reproducible Research\Construction-Hands-on\Construction-Hands-on\Data\Intermediate\TZA_CCT_HH.csv"
+import delimited "$intermediate_data\TZA_CCT_HH.csv"
 
 *---------------------------------------------------------
 * Exercise 1
@@ -34,25 +39,19 @@ gen `var'_w=`var'
 replace `var'_w=scalar(p5) if `var'<scalar(p5)
 replace `var'_w=scalar(p95) if `var'>scalar(p5)
 }
-save "C:\Users\jlyam\OneDrive\Documents\Reproducible Research\Construction-Hands-on\Construction-Hands-on\Data\Intermediate\TZA_CCT_HH.dta"
+save "$intermediate_data\TZA_CCT_HH.dta"
 
 *-----------------------------------------------------------
 * Exercise 3
 *-----------------------------------------------------------
 //Merge data
 
-/*Import the treatment data and create a stata dataset, sort by merging id
-import delimited "C:\Users\jlyam\OneDrive\Documents\Reproducible Research\Processing-Hands-on\Data\Raw\treat_status.csv", clear
-sort vid
-save "C:\Users\jlyam\OneDrive\Documents\Reproducible Research\Construction-Hands-on\Construction-Hands-on\Data\Intermediate\treat_status.dta"
-*/
-
 *Open the master file and sort by vid
-use "C:\Users\jlyam\OneDrive\Documents\Reproducible Research\Processing-Hands-on\Data\Intermediate\TZA_CCT_Baseline.dta", clear
+use "$intermediate_data\TZA_CCT_Baseline.dta", clear
 sort vid
 
 *Merge dataset
-merge m:1 vid using "C:\Users\jlyam\OneDrive\Documents\Reproducible Research\Construction-Hands-on\Construction-Hands-on\Data\Intermediate\treat_status.dta"
+merge m:1 vid using "$intermediate_data\treat_status.dta"
 
 //Save
-save "C:\Users\jlyam\OneDrive\Documents\Reproducible Research\Construction-Hands-on\Construction-Hands-on\Data\Final\TZA_CCT.dta"
+save "$clean_data\TZA_CCT.dta"
