@@ -1,9 +1,13 @@
+*Set directories
+global raw_data "C:\Users\jlyam\OneDrive\Documents\Reproducible Research\Processing-Hands-on\Data\Raw"
+global intermediate_data "C:\Users\jlyam\OneDrive\Documents\Reproducible Research\Processing-Hands-on\Data\Intermediate"
+global clean_data "C:\Users\jlyam\OneDrive\Documents\Reproducible Research\Processing-Hands-on\Data\Final"
 
 *---------------------------------------------------------
 * Import the data
 *---------------------------------------------------------
 
-import delimited "C:\Users\jlyam\OneDrive\Documents\Reproducible Research\Processing-Hands-on\Data\Raw\TZA_CCT_baseline.csv"
+import delimited "$raw_data\TZA_CCT_baseline.csv"
 
 
 *---------------------------------------------------------
@@ -120,9 +124,9 @@ gen outlier_ar_farm=(ar_farm>=32&ar_farm<.)
 gen outlier_food_cons=(food_cons>=3000000&food_cons<.)
 gen outlier_nonfood_cons=(nonfood_cons>=2000000&nonfood_cons<.)
 
-save "C:\Users\jlyam\OneDrive\Documents\Reproducible Research\Processing-Hands-on\Data\Intermediate\TZA_CCT_Baseline.dta", replace
+save "$intermediate_data\TZA_CCT_Baseline.dta", replace
 
 *Import the treatment data and create a stata dataset, sort by merging id
-import delimited "C:\Users\jlyam\OneDrive\Documents\Reproducible Research\Processing-Hands-on\Data\Raw\treat_status.csv", clear
+import delimited "$raw_data\treat_status.csv", clear
 sort vid
-save "C:\Users\jlyam\OneDrive\Documents\Reproducible Research\Construction-Hands-on\Construction-Hands-on\Data\Intermediate\treat_status.dta"
+save "$intermediate_data\treat_status.dta"
